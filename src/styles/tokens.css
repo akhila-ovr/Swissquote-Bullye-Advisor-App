@@ -1,0 +1,129 @@
+/* Swissquote design tokens — copied verbatim from the design-system export
+ * (_ds/.../tokens/*.css). These are the visual foundation the app is built on.
+ * See _ds/.../readme.md for the caveats: colors/fonts are an approximate
+ * public-facts reconstruction, not Swissquote's real internal design system. */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  /* ---- Brand core ---- */
+  --sq-orange-50: oklch(97% 0.03 40);
+  --sq-orange-100: oklch(93% 0.06 40);
+  --sq-orange-200: oklch(87% 0.11 38);
+  --sq-orange-300: oklch(80% 0.16 36);
+  --sq-orange-400: oklch(72% 0.19 35);
+  --sq-orange-500: oklch(66% 0.19 33); /* #FA5B35 brand orange */
+  --sq-orange-600: oklch(58% 0.18 30);
+  --sq-orange-700: oklch(49% 0.16 28);
+  --sq-orange-800: oklch(40% 0.13 27);
+  --sq-orange-900: oklch(30% 0.10 26);
+
+  /* ---- Neutrals — near-black graphite, not pure black ---- */
+  --sq-gray-0: #ffffff;
+  --sq-gray-25: #fafafa;
+  --sq-gray-50: #f4f4f4;
+  --sq-gray-100: #e8e8e8;
+  --sq-gray-200: #d4d4d4;
+  --sq-gray-300: #b5b5b5;
+  --sq-gray-400: #8c8c8c;
+  --sq-gray-500: #6b6b6b;
+  --sq-gray-600: #525252;
+  --sq-gray-700: #3f3f3f; /* brand "Mine Shaft" */
+  --sq-gray-800: #2a2a2a;
+  --sq-gray-900: #171717;
+  --sq-gray-950: #0d0d0d;
+
+  /* ---- Semantic — finance-grade gain/loss + status ---- */
+  --sq-green-500: oklch(58% 0.15 148);
+  --sq-green-700: oklch(42% 0.13 148);
+  --sq-red-500: oklch(55% 0.20 25);
+  --sq-red-700: oklch(40% 0.17 25);
+  --sq-blue-500: oklch(55% 0.14 235);
+  --sq-amber-500: oklch(75% 0.16 80);
+
+  /* ---- Semantic aliases ---- */
+  --surface-page: var(--sq-gray-0);
+  --surface-sunken: var(--sq-gray-25);
+  --surface-card: var(--sq-gray-0);
+  --surface-inverse: var(--sq-gray-900);
+  --surface-overlay: rgba(13, 13, 13, 0.55);
+
+  --border-subtle: var(--sq-gray-100);
+  --border-default: var(--sq-gray-200);
+  --border-strong: var(--sq-gray-400);
+
+  --text-primary: var(--sq-gray-900);
+  --text-secondary: var(--sq-gray-600);
+  --text-tertiary: var(--sq-gray-400);
+  --text-inverse: var(--sq-gray-0);
+  --text-link: var(--sq-orange-600);
+
+  --brand-primary: var(--sq-orange-500);
+  --brand-primary-hover: var(--sq-orange-600);
+  --brand-primary-active: var(--sq-orange-700);
+  --brand-on-primary: var(--sq-gray-0);
+
+  --status-positive: var(--sq-green-500);
+  --status-negative: var(--sq-red-500);
+  --status-info: var(--sq-blue-500);
+  --status-warning: var(--sq-amber-500);
+
+  /* ---- Typography ---- */
+  --font-sans: "Inter", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", "SF Mono", Menlo, monospace;
+
+  --fs-display: clamp(40px, 5vw, 64px);
+  --fs-h1: 36px;
+  --fs-h2: 28px;
+  --fs-h3: 22px;
+  --fs-h4: 18px;
+  --fs-body-lg: 17px;
+  --fs-body: 15px;
+  --fs-body-sm: 13px;
+  --fs-caption: 12px;
+  --fs-data-lg: 28px;
+  --fs-data: 16px;
+
+  --lh-tight: 1.1;
+  --lh-heading: 1.25;
+  --lh-body: 1.5;
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  --ls-tight: -0.01em;
+  --ls-caps: 0.06em;
+
+  /* ---- Spacing / radius ---- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-pill: 999px;
+
+  --container-max: 1200px;
+
+  /* ---- Effects ---- */
+  --shadow-sm: 0 1px 2px rgba(13, 13, 13, 0.06);
+  --shadow-md: 0 2px 8px rgba(13, 13, 13, 0.08);
+  --shadow-lg: 0 8px 24px rgba(13, 13, 13, 0.12);
+  --shadow-focus: 0 0 0 3px rgba(250, 91, 53, 0.30);
+
+  --ease-standard: cubic-bezier(.2, .8, .2, 1);
+  --duration-fast: 120ms;
+  --duration-base: 180ms;
+}

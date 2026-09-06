@@ -1,0 +1,105 @@
+@import "./tokens.css";
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--sq-gray-100);
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a { color: var(--text-link); }
+a:hover { color: var(--sq-orange-700); }
+
+button {
+  font-family: inherit;
+}
+
+/* Hide scrollbars inside the phone — matches the original prototype. */
+::-webkit-scrollbar { width: 0; height: 0; }
+* { scrollbar-width: none; }
+
+/* ---- App shell: centre the phone on desktop, fill the screen on mobile ---- */
+.app-stage {
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--sq-gray-100);
+  overflow: hidden;
+}
+
+/* The phone is a fixed 390x844 canvas. On viewports smaller than that we
+ * scale the whole frame down to fit rather than letting the page scroll.
+ * --phone-scale is set from JS (see App.jsx) on every resize. */
+.phone-scaler {
+  transform: scale(var(--phone-scale, 1));
+  transform-origin: center center;
+  flex: none;
+}
+
+.phone {
+  width: 390px;
+  height: 844px;
+  border-radius: 46px;
+  border: 8px solid #101010;
+  overflow: hidden;
+  position: relative;
+  background: var(--surface-page);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.28);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Placeholder card: hover reveals a note that it stands in for a real view. */
+.ph-swap { position: relative; }
+.ph-swap .ph-swap-note {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+  background: rgba(13, 13, 13, 0.86);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  font-size: 12.5px;
+  line-height: 1.55;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s var(--ease-standard);
+}
+.ph-swap:hover .ph-swap-note { opacity: 1; }
+
+/* In-demo coach tour: the lit element pops above a dimming spotlight. */
+.coach-lit {
+  position: relative;
+  z-index: 58 !important;
+  border-radius: 14px !important;
+  box-shadow: 0 0 0 3px var(--brand-primary), 0 0 0 9999px rgba(13, 13, 13, 0.6) !important;
+}
+
+/* On real phones, drop the bezel and let the app be the app. */
+@media (max-width: 480px) {
+  .app-stage { padding: 0; }
+  .phone-scaler { transform: none; }
+  .phone {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .phone .phone-notch { display: none; }
+}

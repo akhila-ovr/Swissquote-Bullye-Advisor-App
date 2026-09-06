@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<div style="width:{{ px }};height:{{ px }};border-radius:50%;background:var(--sq-orange-100);display:flex;align-items:center;justify-content:center;flex:none">
+<svg viewBox="0 0 64 64" style="width:{{ innerPx }};height:{{ innerPx }}" fill="none">
+<path d="M14 20 C10 10 18 8 22 16" stroke="var(--sq-orange-600)" stroke-width="3.2" stroke-linecap="round"/>
+<path d="M50 20 C54 10 46 8 42 16" stroke="var(--sq-orange-600)" stroke-width="3.2" stroke-linecap="round"/>
+<ellipse cx="32" cy="34" rx="19" ry="17" fill="var(--sq-orange-500)"/>
+<ellipse cx="32" cy="41" rx="9" ry="7" fill="var(--sq-orange-100)"/>
+<circle cx="27" cy="41" r="1.6" fill="var(--sq-orange-700)"/>
+<circle cx="37" cy="41" r="1.6" fill="var(--sq-orange-700)"/>
+<circle cx="24" cy="29" r="2.6" fill="#171717"/>
+<circle cx="40" cy="29" r="2.6" fill="#171717"/>
+<path d="M27 46 Q32 49 37 46" stroke="var(--sq-orange-800)" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+</svg>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:64,&quot;height&quot;:64},&quot;size&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:40,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:24,&quot;max&quot;:120}}">
+class Component extends DCLogic {
+  renderVals() {
+    const size = this.props.size ?? 40;
+    return { px: size + 'px', innerPx: Math.round(size * 0.82) + 'px' };
+  }
+}
+</script>
+</body>
+</html>

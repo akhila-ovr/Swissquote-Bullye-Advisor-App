@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/swissquote-design-system-0753a78e-765b-4d2e-8b38-de8b1a77c83b/tokens/colors.css">
+<link rel="stylesheet" href="_ds/swissquote-design-system-0753a78e-765b-4d2e-8b38-de8b1a77c83b/tokens/typography.css">
+<link rel="stylesheet" href="_ds/swissquote-design-system-0753a78e-765b-4d2e-8b38-de8b1a77c83b/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/swissquote-design-system-0753a78e-765b-4d2e-8b38-de8b1a77c83b/tokens/effects.css">
+<link rel="stylesheet" href="_ds/swissquote-design-system-0753a78e-765b-4d2e-8b38-de8b1a77c83b/styles.css">
+<script src="_ds/swissquote-design-system-0753a78e-765b-4d2e-8b38-de8b1a77c83b/_ds_bundle.js"></script>
+<style>
+body{margin:0;background:var(--sq-gray-100);font-family:var(--font-sans)}
+a{color:var(--text-link)}
+a:hover{color:var(--sq-orange-700)}
+*{box-sizing:border-box}
+::-webkit-scrollbar{width:0;height:0}
+</style>
+</helmet>
+
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px;background:var(--sq-gray-100)">
+<div style="width:390px;height:844px;border-radius:46px;border:8px solid #101010;overflow:hidden;position:relative;background:var(--surface-page);box-shadow:0 30px 70px rgba(0,0,0,0.28);display:flex;flex-direction:column">
+
+<div style="position:absolute;top:10px;left:50%;transform:translateX(-50%);width:96px;height:26px;background:#000;border-radius:18px;z-index:40"></div>
+
+<div style="flex:none;height:46px;display:flex;align-items:center;justify-content:space-between;padding:8px 26px 0;position:relative;z-index:5">
+<span style="font-size:15px;font-weight:600;color:var(--text-primary)">9:41</span>
+<div style="display:flex;gap:5px;align-items:center">
+<div style="width:18px;height:10px;border:1.5px solid var(--text-primary);border-radius:2px"></div>
+<div style="width:22px;height:11px;border:1.5px solid var(--text-primary);border-radius:3px"></div>
+</div>
+</div>
+
+<div style="flex:1;overflow-y:auto;position:relative">
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<div style="padding:14px 18px 28px" data-screen-label="Home">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
+<div style="display:flex;align-items:center;gap:10px">
+<dc-import name="BullyeAvatar" size="38" hint-size="38px,38px"></dc-import>
+<div>
+<div style="font-size:13px;color:var(--text-secondary)">Good evening</div>
+<div style="font-size:19px;font-weight:700;color:var(--text-primary);letter-spacing:var(--ls-tight)">Hi {{ userName }}</div>
+</div>
+</div>
+<div onClick="{{ goMemory }}" style="width:36px;height:36px;border-radius:50%;background:var(--sq-gray-50);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;border:1px solid var(--border-subtle)">🐂</div>
+</div>
+
+<div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:18px;margin-bottom:14px">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+<span style="font-size:11px;font-weight:700;letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--sq-orange-600)">{{ reflectionKicker }}</span>
+</div>
+<div style="font-size:16px;font-weight:700;color:var(--text-primary);line-height:1.35;margin-bottom:6px">{{ reflectionHeadline }}</div>
+<div style="font-size:14px;color:var(--text-secondary);line-height:1.5">{{ reflectionBody }}</div>
+</div>
+
+<div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:18px;margin-bottom:14px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+<div style="font-size:13px;font-weight:700;color:var(--text-primary)">Daily quiz</div>
+<div onClick="{{ openAccessories }}" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end;cursor:pointer">
+<div style="display:flex;align-items:center;gap:5px;font-size:12.5px;font-weight:700;color:var(--sq-orange-600);white-space:nowrap"><span>🔥</span><span>{{ quizStreak }}-day streak</span></div>
+<div style="display:flex;align-items:center;gap:5px;font-size:12.5px;font-weight:700;color:var(--text-secondary);white-space:nowrap"><span>🐂</span><span>{{ quizzesCompleted }} quizzes</span></div>
+</div>
+</div>
+<sc-if value="{{ quizNotDone }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;gap:4px;margin-bottom:12px">
+<sc-for list="{{ quizDots }}" as="dot" hint-placeholder-count="3">
+<div style="flex:1;height:5px;border-radius:3px;background:{{ dot.filled }}"></div>
+</sc-for>
+</div>
+<div style="font-size:11px;color:var(--text-tertiary);margin-bottom:8px">Question {{ quizCurrentNum }} of {{ quizTotal }}</div>
+<div style="font-size:15px;font-weight:700;color:var(--text-primary);line-height:1.4;margin-bottom:12px">{{ quizQuestionText }}</div>
+<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px">
+<sc-for list="{{ quizOptions }}" as="opt" hint-placeholder-count="3">
+<button onClick="{{ opt.onSelect }}" style="{{ opt.style }}">{{ opt.label }}</button>
+</sc-for>
+</div>
+<sc-if value="{{ quizAnswered }}" hint-placeholder-val="{{ false }}">
+<div style="background:var(--sq-orange-50);border-radius:12px;padding:11px 13px;margin-bottom:12px;display:flex;gap:8px;align-items:flex-start">
+<span style="font-size:13px;font-weight:700;color:{{ quizWasCorrect }};flex:none">{{ quizVerdictLabel }}</span>
+<span style="font-size:13px;color:var(--text-primary);line-height:1.5">{{ quizExplain }}</span>
+</div>
+<x-import component-from-global-scope="SwissquoteDesignSystem_0753a7.Button" from="_ds/swissquote-design-system-0753a78e-765b-4d2e-8b38-de8b1a77c83b/_ds_bundle.js" variant="primary" size="sm" onClick="{{ quizNext }}" hint-size="auto,32px">{{ quizNextLabel }}</x-import>
+</sc-if>
+</sc-if>
+<sc-if value="{{ quizDone }}" hint-placeholder-val="{{ false }}">
+<div style="text-align:center;padding:10px 0">
+<div style="font-size:26px;margin-bottom:6px">🎉</div>
+<div style="font-size:15px;font-weight:700;color:var(--text-primary);margin-bottom:2px">Nice! +{{ quizXp }} XP</div>
+<div style="font-size:12.5px;color:var(--text-secondary)">Streak now {{ quizStreak }} days. {{ quizzesCompleted }} quizzes done — keep going to unlock coins for charity donations and retail credit.</div>
+</div>
+</sc-if>
+</div>
+
+<div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:18px;margin-bottom:14px">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
+<div>
+<div style="font-size:12px;color:var(--text-secondary);margin-bottom:2px">Total portfolio</div>
+<div style="font-size:24px;font-weight:700;color:var(--text-primary);font-family:var(--font-mono)">CHF 8,240.00</div>
+</div>
+<x-import component-from-global-scope="SwissquoteDesignSystem_0753a7.Badge" from="_ds/swissquote-design-system-0753a78e-765b-4d2e-8b38-de8b1a77c83b/_ds_bundle.js" tone="positive" hint-size="auto,24px">+2.1% this month</x-import>
+</div>
+<div style="display:flex;align-items:flex-end;gap:5px;height:44px;margin-bottom:12px">
+<div style="flex:1;height:40%;background:var(--sq-orange-100);border-radius:3px"></div>
+<div style="flex:1;height:55%;background:var(--sq-orange-100);border-radius:3px"></div>
+<div style="flex:1;height:48%;background:var(--sq-orange-100);border-radius:3px"></div>
+<div style="flex:1;height:70%;background:var(--sq-orange-300);border-radius:3px"></div>
+<div style="flex:1;height:65%;background:var(--sq-orange-300);border-radius:3px"></div>
+<div style="flex:1;height:85%;background:var(--sq-orange-500);border-radius:3px"></div>
+<div style="flex:1;height:100%;background:var(--sq-orange-500);border-radius:3px"></div>
+</div>
+<div style="display:flex;justify-content:space-between;padding:8px 0;border-top:1px solid var(--border-subtle);font-size:13px">
+<span style="color:var(--text-primary)">Global ETF</span>
+<span style="color:var(--status-positive);font-family:var(--font-mono)">+3.4%</span>
+</div>
+<div style="display:flex;justify-content:space-between;padding:8px 0;font-size:13px">
+<span style="color:var(--text-secondary)">Cash (idle)</span>
+<x-import component-from-global-scope="SwissquoteDesignSystem_0753a7.Tag" from="_ds/swissquote-design-system-0753a78e-765b-4d2e-8b38-de8b1a77c83b/_ds_bundle.js" hint-size="auto,22px">Not invested</x-import>
+</div>
+<div style="display:flex;justify-content:space-between;padding:8px 0;border-top:1px solid var(--border-subtle);font-size:13px">
+<span style="color:var(--text-secondary)">Pillar 3a</span>
+<span style="color:var(--text-tertiary);font-style:italic">Not started</span>
+</div>
+</div>
+
+<div style="background:var(--surface-inverse);border-radius:var(--radius-lg);padding:18px;display:flex;gap:12px;align-items:center;cursor:pointer;margin-bottom:14px" onClick="{{ goLetter }}">
+<dc-import name="BullyeAvatar" size="34" hint-size="34px,34px"></dc-import>
+<div style="flex:1">
+<div style="color:#fff;font-size:14px;font-weight:700;margin-bottom:2px">Your weekly letter is ready</div>
+<div style="color:rgba(255,255,255,0.6);font-size:12.5px">Insights, performance, news and advice — from Bullye</div>
+</div>
+<span style="color:rgba(255,255,255,0.5);font-size:18px">›</span>
+</div>
+
+<div onClick="{{ goNotifs }}" style="display:flex;align-items:center;gap:8px;padding:4px 2px;cursor:pointer">
+<span style="font-size:13px;font-weight:600;color:var(--text-secondary)">Explore notification concepts</span>
+<span style="color:var(--text-tertiary);font-size:15px">›</span>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isNotifs }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Notification concepts" style="padding:14px 18px 28px">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
+<div onClick="{{ goHome }}" style="cursor:pointer;font-size:20px;color:var(--text-primary);padding:2px 4px">‹</div>
+<div>
+<div style="font-size:11px;color:var(--text-tertiary);letter-spacing:var(--ls-caps);text-transform:uppercase">Growth & retention</div>
+<div style="font-size:18px;font-weight:700;color:var(--text-primary)">Notification concepts</div>
+</div>
+</div>
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.5;margin:0 0 18px">Push previews with the mechanic each one is designed to trigger — not live copy.</p>
+
+<sc-for list="{{ notifItems }}" as="item" hint-placeholder-count="3">
+<div style="margin-bottom:16px">
+<div style="background:var(--surface-inverse);border-radius:18px;padding:14px 16px;display:flex;gap:10px;align-items:flex-start">
+<dc-import name="BullyeAvatar" size="26" hint-size="26px,26px"></dc-import>
+<div style="flex:1">
+<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px">
+<span style="color:rgba(255,255,255,0.55);font-size:11px;font-weight:700;letter-spacing:var(--ls-caps);text-transform:uppercase">Bullye</span>
+<span style="color:rgba(255,255,255,0.4);font-size:11px">now</span>
+</div>
+<div style="color:#fff;font-size:13.5px;font-weight:700;margin-bottom:3px;line-height:1.35">{{ item.title }}</div>
+<div style="color:rgba(255,255,255,0.72);font-size:12.5px;line-height:1.5"><sc-for list="{{ item.bodySegments }}" as="seg" hint-placeholder-count="1"><span onClick="{{ seg.onClick }}" style="{{ seg.style }}">{{ seg.text }}</span></sc-for></div>
+</div>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 0 2px;align-items:center">
+<sc-for list="{{ item.tags }}" as="tag" hint-placeholder-count="2">
+<span style="font-size:10.5px;font-weight:700;letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--sq-orange-600);background:var(--sq-orange-50);border-radius:var(--radius-pill);padding:4px 9px">{{ tag }}</span>
+</sc-for>
+<span onClick="{{ openPing }}" style="font-size:11px;font-weight:700;color:var(--text-secondary);background:var(--sq-gray-50);border:1px solid var(--border-subtle);border-radius:var(--radius-pill);padding:4px 10px;cursor:pointer">Ping a friend</span>
+</div>
+<sc-if value="{{ item.extra }}" hint-placeholder-val="{{ false }}">
+<div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:14px;padding:10px 12px;margin:8px 0 0 2px;display:flex;gap:8px;align-items:center">
+<span style="font-size:11px;color:var(--text-tertiary);flex:none">Then, to friends</span>
+<span style="font-size:12.5px;color:var(--text-primary);font-weight:600">{{ item.extra }}</span>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ isLetter }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Letter">
+<div style="position:sticky;top:0;background:var(--surface-page);z-index:3;padding:14px 18px 10px;border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;gap:12px">
+<div onClick="{{ goHome }}" style="cursor:pointer;font-size:20px;color:var(--text-primary);padding:2px 4px">‹</div>
+<div style="flex:1">
+<div style="font-size:11px;color:var(--text-tertiary);letter-spacing:var(--ls-caps);text-transform:uppercase">Week of Sep 1</div>
+<div style="font-size:18px;font-weight:700;color:var(--text-primary)">Bullye's letter</div>
+</div>
+<dc-import name="BullyeAvatar" size="32" hint-size="32px,32px"></dc-import>
+</div>
+
+<div style="padding:18px 18px 100px">
+<p style="font-size:14px;color:var(--text-secondary);line-height:1.55;margin:0 0 20px">Hi {{ userName }}, here's your week — in plain language, no offers.</p>
+
+<div style="background:var(--sq-green-50, #eafaf1);border-radius:var(--radius-lg);padding:16px;margin-bottom:16px;display:flex;gap:12px;align-items:center">
+<div style="width:40px;height:40px;border-radius:50%;background:var(--status-positive);color:#fff;font-size:20px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none">✓</div>
+<div>
+<div style="font-size:11px;font-weight:700;letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--status-positive);margin-bottom:2px">How you're doing</div>
+<div style="font-size:15px;font-weight:700;color:var(--text-primary);line-height:1.4">Good week. Up 2.1%, on track.</div>
+</div>
+</div>
+
+<div style="background:var(--sq-gray-50);border-radius:var(--radius-lg);padding:16px;margin-bottom:16px">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+<span style="font-size:16px">📉</span>
+<span style="font-size:11px;font-weight:700;letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--text-secondary)">The market this week</span>
+</div>
+<p style="font-size:14.5px;color:var(--text-primary);line-height:1.55;margin:0">The Swiss National Bank cut rates again — savings accounts now pay even less. Women in Switzerland still retire with pensions about a third smaller than men's, mostly from part-time years and career breaks.</p>
+</div>
+
+<div style="background:var(--sq-orange-50);border-radius:var(--radius-lg);padding:16px;margin-bottom:16px">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+<span style="font-size:16px">📈</span>
+<span style="font-size:11px;font-weight:700;letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--sq-orange-600)">Your investments</span>
+</div>
+<div style="display:flex;align-items:flex-end;gap:4px;height:32px;margin-bottom:10px">
+<div style="flex:1;height:45%;background:var(--sq-orange-200);border-radius:3px"></div>
+<div style="flex:1;height:60%;background:var(--sq-orange-300);border-radius:3px"></div>
+<div style="flex:1;height:55%;background:var(--sq-orange-300);border-radius:3px"></div>
+<div style="flex:1;height:80%;background:var(--sq-orange-500);border-radius:3px"></div>
+<div style="flex:1;height:100%;background:var(--sq-orange-500);border-radius:3px"></div>
+</div>
+<p style="font-size:14.5px;color:var(--text-primary);line-height:1.55;margin:0">Your portfolio grew 2.1% this month, mostly carried by your <span onClick="{{ openEtf }}" style="text-decoration:underline dotted;text-decoration-color:var(--sq-orange-400);text-decoration-thickness:1.5px;cursor:pointer;font-weight:600">ETF</span>. Some cash sat uninvested for three weeks, earning nothing — a small but real cost of waiting.</p>
+</div>
+
+<div style="margin-bottom:16px">
+<div style="font-size:11px;font-weight:700;letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--sq-orange-600);margin-bottom:8px">Planning for next week</div>
+<sc-if value="{{ isGentleTone }}" hint-placeholder-val="{{ true }}">
+<p style="font-size:15px;color:var(--text-primary);line-height:1.6;margin:0 0 14px">You told me time with your family matters more than climbing fast. A <span onClick="{{ openPillar }}" style="text-decoration:underline dotted;text-decoration-color:var(--sq-orange-400);text-decoration-thickness:1.5px;cursor:pointer;font-weight:600">pillar 3a</span> isn't a product pitch — it's a way to quietly protect that choice. Every year you wait is a year those <span onClick="{{ openTax }}" style="text-decoration:underline dotted;text-decoration-color:var(--sq-orange-400);text-decoration-thickness:1.5px;cursor:pointer;font-weight:600">tax-deductible</span> contributions and their <span onClick="{{ openCompound }}" style="text-decoration:underline dotted;text-decoration-color:var(--sq-orange-400);text-decoration-thickness:1.5px;cursor:pointer;font-weight:600">compound growth</span> can't work for you.</p>
+</sc-if>
+<sc-if value="{{ isDirectTone }}" hint-placeholder-val="{{ false }}">
+<p style="font-size:15px;color:var(--text-primary);line-height:1.6;margin:0 0 14px">A <span onClick="{{ openPillar }}" style="text-decoration:underline dotted;text-decoration-color:var(--sq-orange-400);text-decoration-thickness:1.5px;cursor:pointer;font-weight:600">pillar 3a</span> isn't a sales pitch. Every year you wait, you lose a year of <span onClick="{{ openTax }}" style="text-decoration:underline dotted;text-decoration-color:var(--sq-orange-400);text-decoration-thickness:1.5px;cursor:pointer;font-weight:600">tax-deductible</span> relief and <span onClick="{{ openCompound }}" style="text-decoration:underline dotted;text-decoration-color:var(--sq-orange-400);text-decoration-thickness:1.5px;cursor:pointer;font-weight:600">compound growth</span> working quietly in the background. Worth setting up this week.</p>
+</sc-if>
+<x-import component-from-global-scope="SwissquoteDesignSystem_0753a7.Button" from="_ds/swissquote-design-system-0753a78e-765b-4d2e-8b38-de8b1a77c83b/_ds_bundle.js" variant="primary" onClick="{{ go3a }}" hint-size="auto,42px">See what this means for me</x-import>
+</div>
+
+<div style="background:var(--sq-orange-50);border-radius:var(--radius-lg);padding:16px;margin-bottom:24px">
+<div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:12px">
+<dc-import name="BullyeAvatar" size="30" hint-size="30px,30px"></dc-import>
+<div style="font-size:14px;font-weight:700;color:var(--text-primary);line-height:1.4;padding-top:2px">Quick one from me: what would financial freedom actually let you do?</div>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px">
+<button onClick="{{ answerWorkless }}" disabled="{{ questionLocked }}" style="{{ chipStyleWorkless }}">Work less, not stop</button>
+<button onClick="{{ answerAnxious }}" disabled="{{ questionLocked }}" style="{{ chipStyleAnxious }}">Feel less anxious</button>
+<button onClick="{{ answerKids }}" disabled="{{ questionLocked }}" style="{{ chipStyleKids }}">Support my kids</button>
+<button onClick="{{ answerRetire }}" disabled="{{ questionLocked }}" style="{{ chipStyleRetire }}">Retire earlier</button>
+</div>
+<sc-if value="{{ questionLocked }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:12.5px;color:var(--sq-orange-700);margin-top:10px;font-weight:600">Thanks — I'll remember that. 💛</div>
+</sc-if>
+</div>
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ isMemory }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Memory" style="padding:14px 18px 28px">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
+<div onClick="{{ goHome }}" style="cursor:pointer;font-size:20px;color:var(--text-primary);padding:2px 4px">‹</div>
+<div>
+<div style="font-size:11px;color:var(--text-tertiary);letter-spacing:var(--ls-caps);text-transform:uppercase">What Bullye knows</div>
+<div style="font-size:18px;font-weight:700;color:var(--text-primary)">About {{ userName }}</div>
+</div>
+</div>
+<p style="font-size:13.5px;color:var(--text-secondary);line-height:1.5;margin:0 0 14px">She builds this from how you use the app and what you tell her — never from what she'd like to sell you.</p>
+<div onClick="{{ openAddInfo }}" style="display:flex;align-items:center;gap:8px;padding:12px 14px;border:1px dashed var(--border-default);border-radius:var(--radius-lg);cursor:pointer;margin-bottom:16px">
+<span style="font-size:16px;color:var(--sq-orange-600);font-weight:700">+</span>
+<span style="font-size:13.5px;font-weight:600;color:var(--text-primary)">Add more about yourself, for better advice</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<sc-for list="{{ memoryItems }}" as="item" hint-placeholder-count="3">
+<div style="background:var(--surface-card);border:1px solid {{ item.borderColor }};border-radius:var(--radius-lg);padding:14px;box-shadow:var(--shadow-sm)">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+<x-import component-from-global-scope="SwissquoteDesignSystem_0753a7.Badge" from="_ds/swissquote-design-system-0753a78e-765b-4d2e-8b38-de8b1a77c83b/_ds_bundle.js" tone="{{ item.tone }}" hint-size="auto,22px">{{ item.tag }}</x-import>
+<span style="font-size:11.5px;color:var(--text-tertiary)">{{ item.when }}</span>
+</div>
+<div style="font-size:14px;color:var(--text-primary);line-height:1.5">{{ item.text }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ is3a }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="3a" style="padding:14px 18px 28px">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+<div onClick="{{ goHome }}" style="cursor:pointer;font-size:20px;color:var(--text-primary);padding:2px 4px">‹</div>
+<div style="font-size:18px;font-weight:700;color:var(--text-primary)">Your 3a, your reasons</div>
+</div>
+
+<sc-if value="{{ threeAConfirmed }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:40px 10px">
+<dc-import name="BullyeAvatar" size="64" hint-size="64px,64px"></dc-import>
+<div style="font-size:17px;font-weight:700;color:var(--text-primary);margin:18px 0 6px">You're on your way</div>
+<p style="font-size:14px;color:var(--text-secondary);line-height:1.5;margin:0 0 20px">No numbers to chase, no chart to watch daily. Bullye will check in on your terms, not the market's.</p>
+<x-import component-from-global-scope="SwissquoteDesignSystem_0753a7.Button" from="_ds/swissquote-design-system-0753a78e-765b-4d2e-8b38-de8b1a77c83b/_ds_bundle.js" variant="secondary" onClick="{{ goHome }}" hint-size="auto,42px">Back to home</x-import>
+</div>
+</sc-if>
+<sc-if value="{{ threeAPending }}" hint-placeholder-val="{{ true }}">
+<div style="background:var(--sq-orange-50);border-radius:var(--radius-lg);padding:16px;margin-bottom:18px">
+<div style="font-size:14px;color:var(--text-primary);line-height:1.6;font-weight:600">{{ threeAReasonText }}</div>
+</div>
+<p style="font-size:14.5px;color:var(--text-primary);line-height:1.6;margin:0 0 18px">This isn't about performance charts. It's about buying yourself room to breathe — fewer money-worries the next time life asks you to slow down.</p>
+<div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
+<div style="display:flex;gap:10px;align-items:flex-start">
+<span style="color:var(--sq-orange-500);font-size:15px;line-height:1.5">●</span>
+<span style="font-size:14px;color:var(--text-primary);line-height:1.5">Money set aside quietly, on your terms</span>
+</div>
+<div style="display:flex;gap:10px;align-items:flex-start">
+<span style="color:var(--sq-orange-500);font-size:15px;line-height:1.5">●</span>
+<span style="font-size:14px;color:var(--text-primary);line-height:1.5">Tax relief every year you contribute</span>
+</div>
+<div style="display:flex;gap:10px;align-items:flex-start">
+<span style="color:var(--sq-orange-500);font-size:15px;line-height:1.5">●</span>
+<span style="font-size:14px;color:var(--text-primary);line-height:1.5">A safety net that doesn't depend on working full-time forever</span>
+</div>
+</div>
+<x-import component-from-global-scope="SwissquoteDesignSystem_0753a7.Button" from="_ds/swissquote-design-system-0753a78e-765b-4d2e-8b38-de8b1a77c83b/_ds_bundle.js" variant="primary" onClick="{{ start3a }}" hint-size="auto,44px">Start my 3a</x-import>
+</sc-if>
+</div>
+</sc-if>
+
+</div>
+
+<sc-if value="{{ showChatCta }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:0;right:0;bottom:{{ chatCtaBottom }};padding:14px 18px;background:linear-gradient(to top,var(--surface-page) 70%,transparent);z-index:20">
+<div onClick="{{ openChat }}" style="background:var(--surface-inverse);border-radius:var(--radius-pill);padding:12px 18px;display:flex;align-items:center;gap:10px;cursor:pointer;box-shadow:var(--shadow-lg)">
+<dc-import name="BullyeAvatar" size="26" hint-size="26px,26px"></dc-import>
+<span style="color:#fff;font-size:14px;font-weight:600;flex:1">Talk to Bullye</span>
+<span style="color:rgba(255,255,255,0.5)">💬</span>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ showTabBar }}" hint-placeholder-val="{{ true }}">
+<div style="flex:none;display:flex;border-top:1px solid var(--border-subtle);background:var(--surface-page);padding:8px 10px 4px">
+<div onClick="{{ goHome }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:4px 0">
+<div style="width:6px;height:6px;border-radius:50%;background:{{ tabDotHome }}"></div>
+<span style="font-size:11px;font-weight:600;color:{{ tabColorHome }}">Home</span>
+</div>
+<div onClick="{{ goLetter }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:4px 0">
+<div style="width:6px;height:6px;border-radius:50%;background:{{ tabDotLetter }}"></div>
+<span style="font-size:11px;font-weight:600;color:{{ tabColorLetter }}">Letter</span>
+</div>
+<div onClick="{{ goMemory }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:4px 0">
+<div style="width:6px;height:6px;border-radius:50%;background:{{ tabDotMemory }}"></div>
+<span style="font-size:11px;font-weight:600;color:{{ tabColorMemory }}">Bullye</span>
+</div>
+</div>
+</sc-if>
+
+<div style="position:absolute;top:{{ notifTop }};left:12px;right:12px;transition:top 0.4s var(--ease-standard), opacity 0.4s;opacity:{{ notifOpacity }};z-index:55" onClick="{{ openLetterFromNotif }}">
+<div style="background:var(--surface-inverse);border-radius:18px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:var(--shadow-lg);cursor:pointer">
+<dc-import name="BullyeAvatar" size="30" hint-size="30px,30px"></dc-import>
+<div style="flex:1">
+<div style="color:#fff;font-size:13px;font-weight:700">Bullye</div>
+<div style="color:rgba(255,255,255,0.65);font-size:12.5px">Hey! You have a letter 💛</div>
+</div>
+</div>
+</div>
+
+<div style="position:absolute;left:0;right:0;bottom:0;height:74%;background:var(--surface-page);border-radius:24px 24px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,0.2);transform:translateY({{ chatTranslate }});transition:transform 0.35s var(--ease-standard);z-index:60;display:flex;flex-direction:column">
+<div style="flex:none;display:flex;align-items:center;gap:10px;padding:16px 16px 12px;border-bottom:1px solid var(--border-subtle)">
+<dc-import name="BullyeAvatar" size="32" hint-size="32px,32px"></dc-import>
+<div style="flex:1">
+<div style="font-size:14px;font-weight:700;color:var(--text-primary)">Bullye</div>
+<div style="font-size:11.5px;color:var(--status-positive)">● online</div>
+</div>
+<div onClick="{{ closeChat }}" style="cursor:pointer;font-size:18px;color:var(--text-tertiary);padding:4px 8px">×</div>
+</div>
+<div style="flex:1;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:10px">
+<sc-for list="{{ chatMessages }}" as="msg" hint-placeholder-count="1">
+<div style="display:flex;justify-content:{{ msg.align }}">
+<div style="max-width:78%;background:{{ msg.bg }};color:{{ msg.color }};border-radius:14px;padding:10px 13px;font-size:13.5px;line-height:1.5">{{ msg.text }}</div>
+</div>
+</sc-for>
+</div>
+<div style="flex:none;padding:10px 16px 16px;border-top:1px solid var(--border-subtle);display:flex;flex-direction:column;gap:8px">
+<sc-if value="{{ chatAllDone }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:12.5px;color:var(--text-tertiary);text-align:center;padding:6px 0">That's everything for this week. Talk soon 💛</div>
+</sc-if>
+<div style="display:flex;flex-wrap:wrap;gap:8px">
+<sc-for list="{{ chatChips }}" as="chip" hint-placeholder-count="3">
+<button onClick="{{ chip.onSelect }}" style="background:var(--sq-gray-0);border:1px solid var(--border-default);border-radius:var(--radius-pill);padding:8px 14px;font-size:13px;font-weight:600;color:var(--text-primary);cursor:pointer" style-hover="background:var(--sq-gray-50)">{{ chip.q }}</button>
+</sc-for>
+</div>
+</div>
+</div>
+
+<div style="position:absolute;inset:0;background:{{ scrimBg }};pointer-events:{{ scrimPointer }};transition:background 0.35s;z-index:59" onClick="{{ closeChat }}"></div>
+
+<sc-if value="{{ toastMsg }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;bottom:100px;left:18px;right:18px;z-index:70">
+<x-import component-from-global-scope="SwissquoteDesignSystem_0753a7.Toast" from="_ds/swissquote-design-system-0753a78e-765b-4d2e-8b38-de8b1a77c83b/_ds_bundle.js" tone="success" hint-size="auto,44px">{{ toastMsg }}</x-import>
+</div>
+</sc-if>
+
+<x-import component-from-global-scope="SwissquoteDesignSystem_0753a7.Dialog" from="_ds/swissquote-design-system-0753a78e-765b-4d2e-8b38-de8b1a77c83b/_ds_bundle.js" open="{{ glossaryOpen }}" title="{{ glossaryTitle }}" onClose="{{ closeGlossary }}" hint-size="100%,100%">
+<div style="font-size:14px;color:var(--text-primary);line-height:1.6;margin-bottom:14px">{{ glossaryBody }}</div>
+<x-import component-from-global-scope="SwissquoteDesignSystem_0753a7.Button" from="_ds/swissquote-design-system-0753a78e-765b-4d2e-8b38-de8b1a77c83b/_ds_bundle.js" variant="secondary" size="sm" onClick="{{ addToDictionary }}" disabled="{{ glossaryInDictionary }}" hint-size="auto,32px">{{ dictionaryButtonLabel }}</x-import>
+</x-import>
+
+<sc-if value="{{ accessoriesOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;background:var(--surface-overlay);z-index:80;display:flex;align-items:flex-end" onClick="{{ closeAccessories }}">
+<div style="background:var(--surface-page);border-radius:20px 20px 0 0;padding:18px;width:100%;max-height:78%;overflow-y:auto;box-shadow:var(--shadow-lg)" onClick="{{ stopBubble }}">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+<div style="font-size:15px;font-weight:700;color:var(--text-primary)">Bullye's rewards</div>
+<div onClick="{{ closeAccessories }}" style="cursor:pointer;font-size:18px;color:var(--text-tertiary);padding:4px 8px">×</div>
+</div>
+<div style="display:flex;align-items:center;gap:8px;background:var(--sq-orange-50);border-radius:14px;padding:12px 14px;margin-bottom:14px">
+<span style="font-size:20px">🪙</span>
+<div><div style="font-size:11px;color:var(--text-secondary);font-weight:600">Your coins</div><div style="font-size:17px;font-weight:700;color:var(--sq-orange-700)">{{ coins }}</div></div>
+</div>
+<div style="display:flex;gap:8px;margin-bottom:14px">
+<button onClick="{{ setDonateCat }}" style="flex:1;padding:9px;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;border:1.5px solid var(--sq-orange-600);background:{{ donateTabBg }};color:{{ donateTabColor }}">Donate</button>
+<button onClick="{{ setRetailCat }}" style="flex:1;padding:9px;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;border:1.5px solid var(--sq-orange-600);background:{{ retailTabBg }};color:{{ retailTabColor }}">Retail credit</button>
+</div>
+<p style="font-size:12.5px;color:var(--text-secondary);line-height:1.5;margin:0 0 14px">Earn coins by finishing quizzes and keeping your streak. Spend them how you like.</p>
+<div style="display:flex;flex-direction:column;gap:8px">
+<sc-for list="{{ rewardItems }}" as="rw" hint-placeholder-count="3">
+<div style="display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--border-subtle);border-radius:14px;opacity:{{ rw.cardOpacity }}">
+<div style="font-size:24px;flex:none">{{ rw.emoji }}</div>
+<div style="flex:1">
+<div style="font-size:13.5px;font-weight:700;color:var(--text-primary)">{{ rw.name }}</div>
+<div style="font-size:11.5px;color:var(--text-tertiary)">{{ rw.cost }} coins</div>
+</div>
+<span onClick="{{ rw.onRedeem }}" style="font-size:11px;font-weight:700;border-radius:var(--radius-pill);padding:5px 10px;white-space:nowrap;cursor:pointer;background:{{ rw.badgeBg }};color:{{ rw.badgeColor }}">{{ rw.statusLabel }}</span>
+</div>
+</sc-for>
+</div>
+<sc-if value="{{ redeemedMsg }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top:12px;font-size:12.5px;font-weight:600;color:var(--status-positive)">{{ redeemedMsg }}</div>
+</sc-if>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ addInfoOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;background:var(--surface-overlay);z-index:80;display:flex;align-items:flex-end" onClick="{{ closeAddInfo }}">
+<div style="background:var(--surface-page);border-radius:20px 20px 0 0;padding:18px;width:100%;box-shadow:var(--shadow-lg)" onClick="{{ stopBubble }}">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+<div style="font-size:15px;font-weight:700;color:var(--text-primary)">Tell Bullye more</div>
+<div onClick="{{ closeAddInfo }}" style="cursor:pointer;font-size:18px;color:var(--text-tertiary);padding:4px 8px">×</div>
+</div>
+<p style="font-size:12.5px;color:var(--text-secondary);line-height:1.5;margin:0 0 12px">Anything about your goals, family, or plans helps her give more relevant advice.</p>
+<textarea value="{{ addInfoText }}" onChange="{{ setAddInfoText }}" placeholder="e.g. I want to go part-time again next year..." style="width:100%;min-height:80px;border:1px solid var(--border-default);border-radius:12px;padding:10px 12px;font-size:14px;font-family:var(--font-sans);color:var(--text-primary);resize:none;margin-bottom:12px"></textarea>
+<x-import component-from-global-scope="SwissquoteDesignSystem_0753a7.Button" from="_ds/swissquote-design-system-0753a78e-765b-4d2e-8b38-de8b1a77c83b/_ds_bundle.js" variant="primary" onClick="{{ submitAddInfo }}" hint-size="auto,42px">Save</x-import>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ pingOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;background:var(--surface-overlay);z-index:80;display:flex;align-items:flex-end" onClick="{{ closePing }}">
+<div style="background:var(--surface-page);border-radius:20px 20px 0 0;padding:18px;width:100%;box-shadow:var(--shadow-lg)" onClick="{{ stopBubble }}">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+<div style="font-size:15px;font-weight:700;color:var(--text-primary)">Ping a friend</div>
+<div onClick="{{ closePing }}" style="cursor:pointer;font-size:18px;color:var(--text-tertiary);padding:4px 8px">×</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px">
+<sc-for list="{{ friends }}" as="friend" hint-placeholder-count="3">
+<div onClick="{{ friend.onPing }}" style="display:flex;align-items:center;gap:12px;padding:10px 8px;border-radius:12px;cursor:pointer" style-hover="background:var(--sq-gray-50)">
+<div style="width:36px;height:36px;border-radius:50%;background:var(--sq-orange-100);color:var(--sq-orange-700);font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center">{{ friend.initial }}</div>
+<span style="font-size:14px;font-weight:600;color:var(--text-primary)">{{ friend.name }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+
+<div style="position:absolute;bottom:0;left:0;right:0;height:22px;display:flex;justify-content:center;align-items:flex-end;padding-bottom:7px;pointer-events:none;z-index:65">
+<div style="width:120px;height:4px;border-radius:100px;background:rgba(0,0,0,0.28)"></div>
+</div>
+
+</div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;userName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Maya&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;notifDelaySeconds&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:3,&quot;min&quot;:1,&quot;max&quot;:10,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;unit&quot;:&quot;s&quot;,&quot;section&quot;:&quot;Behavior&quot;},&quot;letterTone&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;gentle&quot;,&quot;options&quot;:[&quot;gentle&quot;,&quot;direct&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Behavior&quot;}}">
+const CHAT_SCRIPT = [
+  { id: 'timing', q: 'Why does timing matter?', a: "Compound growth needs time more than money — starting small now beats waiting for 'enough' later." },
+  { id: 'risk', q: 'Is 3a risky?', a: 'You pick the strategy, from Mild to Fiery. Markets move, but pulling out early usually costs more than staying calm.' },
+  { id: 'thisweek', q: 'What should I do this week?', a: "Just one step: open your 3a and set one contribution. I'll help you keep it going after that." },
+];
+
+const GLOSSARY = {
+  etf: { title: 'ETF', body: 'A fund that bundles many investments — like dozens of company shares — into one. Your money spreads out automatically.' },
+  pillar3a: { title: 'Pillar 3a', body: "Switzerland's private pension pillar. Money you set aside yourself, with tax benefits, on top of what your employer already contributes." },
+  taxded: { title: 'Tax-deductible', body: 'You can subtract these contributions from your taxable income — so you pay less tax in the same year you save.' },
+  compound: { title: 'Compound growth', body: 'When your returns start earning their own returns. The longer money stays invested, the faster it grows.' },
+  securities3a: { title: 'Securities 3a', body: 'A pillar 3a account invested in the market (stocks and ETFs) instead of sitting in cash — more growth potential, with some ups and downs along the way.' },
+  taxrefund: { title: 'Tax refund', body: 'Money returned to you after you overpaid tax during the year — often boosted by deductible contributions like your 3a.' },
+};
+
+const JARGON_TERMS = [
+  { phrase: 'ETF', key: 'etf' },
+  { phrase: 'Pillar 3a', key: 'pillar3a' },
+  { phrase: 'securities 3a', key: 'securities3a' },
+  { phrase: '3a', key: 'pillar3a' },
+  { phrase: 'tax refund', key: 'taxrefund' },
+];
+
+function splitJargon(text) {
+  const pattern = JARGON_TERMS.map(t => t.phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
+  const re = new RegExp('(' + pattern + ')', 'g');
+  return text.split(re).filter(p => p !== '').map(p => {
+    const match = JARGON_TERMS.find(t => t.phrase === p);
+    return { text: p, key: match ? match.key : null };
+  });
+}
+
+const ANSWER_MAP = {
+  workless: { mem: 'Wants to work less, not stop working entirely.' },
+  anxious: { mem: 'Wants to feel less anxious about money day-to-day.' },
+  kids: { mem: 'Wants to support her kids without financial stress.' },
+  retire: { mem: 'Wants the option to retire earlier than the default path.' },
+};
+
+const REASON_MAP = {
+  workless: "You told Bullye you want to work less, not stop. A 3a is how you buy that choice quietly.",
+  anxious: "You told Bullye money-anxiety is real for you. A 3a is one less thing to worry about, on autopilot.",
+  kids: "You told Bullye your kids come first. A 3a protects that without touching your day-to-day cash.",
+  retire: "You told Bullye you want the option to retire earlier. Every year in a 3a keeps that option open.",
+};
+const DEFAULT_REASON = "You told Bullye time with your family matters more than climbing fast. A 3a protects that choice quietly.";
+
+const FRIENDS = ['Elena', 'Noah', 'Priya', 'Lars', 'Mila'];
+
+const REWARD_OPTIONS = [
+  { emoji: '🇨🇭', name: 'CHF 5 to Pro Juventute', category: 'donate', cost: 50 },
+  { emoji: '🌸', name: 'CHF 10 to BENEVOL Schweiz', category: 'donate', cost: 100 },
+  { emoji: '🎗️', name: 'CHF 25 to Swiss Women\u2019s Fund', category: 'donate', cost: 220 },
+  { emoji: '🛒', name: 'CHF 10 Migros credit', category: 'retail', cost: 100 },
+  { emoji: '👗', name: 'CHF 15 Zalando credit', category: 'retail', cost: 140 },
+  { emoji: '📦', name: 'CHF 20 Galaxus credit', category: 'retail', cost: 190 },
+];
+
+const QUIZ_QUESTIONS = [
+  { q: 'What does ETF stand for?', options: ['Exchange-Traded Fund', 'Extra Tax Fee', 'Equity Transfer Form'], correct: 0, explain: 'An ETF bundles many stocks into one fund you can trade like a single share — an easy way to own a slice of hundreds of companies at once.' },
+  { q: 'What is a pillar 3a?', options: ["Switzerland's private pension pillar", 'A type of savings account', 'A stock market index'], correct: 0, explain: "Pillar 3a is Switzerland's voluntary private pension — money you set aside yourself, on top of your employer pension, with tax benefits each year." },
+  { q: 'What does "tax-deductible" mean for your 3a?', options: ['You pay tax twice', 'You can subtract it from taxable income', "It's tax-free forever"], correct: 1, explain: 'Every franc you contribute to your 3a is subtracted from your taxable income, so you owe less tax the same year you save.' },
+];
+
+const NOTIF_TYPES = [
+  { title: 'Test your financial knowledge 👀', body: "Are you ready for a 5-min quiz? Bet you can't beat your friends.", tags: ['Time-bound', 'Shareable', 'Leaderboard'], extra: 'Elena just finished the quiz — your turn?' },
+  { title: 'New word alert!', body: 'An ETF is a single investment that bundles many different stocks together — like buying an S&P 500 ETF to own a tiny piece of 500 major companies at once. Share this with a friend!', tags: ['Learn in 10s', 'Shareable'] },
+  { title: 'Fact of the week', body: 'Pillar 3a helps bridge the Swiss pension and pay gaps caused by part-time work or career breaks — which disproportionately affect women. Share this with a friend!', tags: ['Weekly', 'Shareable'] },
+  { title: "Don't wait 3 months", body: 'CHF 150/month into a securities 3a from today closes your pension gap by 65. Block 5 minutes to start saving CHF 2,400 more this year.', tags: ['Personalized', 'Urgency'] },
+  { title: "Sarah's story", body: "A working mother from Zurich maxed out her annual 3a contribution of CHF 7,258 — and instantly pocketed a CHF 2,100 tax refund she reinvested in her family's future.", tags: ['Real story', 'Personalized'] },
+  { title: 'Debunked!', body: 'A 20-year-old investing in a 3a instead of a savings account ends up with CHF 100,000 more by retirement. Share this with a friend!', tags: ['Myth-buster', 'Shareable'] },
+  { title: 'Swissquote, confirmed cheapest', body: 'According to an independent women\u2019s finance organization, Swissquote is the most affordable 3a provider for women investors in Switzerland.', tags: ['Social proof', 'Trust'] },
+];
+
+class Component extends DCLogic {
+  state = {
+    screen: 'home',
+    notifVisible: false,
+    chatOpen: false,
+    chatMessages: [{ from: 'bullye', text: "Hi! I'm Bullye 🐂 — what's on your mind about the letter?" }],
+    chatUsed: [],
+    glossaryKey: null,
+    questionAnswered: null,
+    toastMsg: null,
+    threeAConfirmed: false,
+    reflectionMode: 'fact',
+    memory: [
+      { id: 'seed2', tag: 'Goal', tone: 'brand', text: 'Wants to close the retirement gap her career break created.', when: '2 weeks ago', borderColor: 'var(--border-subtle)' },
+      { id: 'seed3', tag: 'Value', tone: 'positive', text: 'Time with family matters more than climbing fast at work.', when: '2 weeks ago', borderColor: 'var(--border-subtle)' },
+    ],
+    accessoriesOpen: false,
+    addInfoOpen: false,
+    addInfoText: '',
+    dictionary: [],
+    pingOpen: false,
+    quizIndex: 0,
+    quizSelected: null,
+    quizStreak: 4,
+    quizzesCompleted: 12,
+    quizXp: 0,
+    coins: 130,
+    rewardCategory: 'donate',
+    redeemedMsg: null,
+    quizDone: false,
+  };
+
+  componentDidMount() {
+    const delay = (this.props.notifDelaySeconds ?? 3) * 1000;
+    this._notifTimer = setTimeout(() => this.setState({ notifVisible: true }), delay);
+  }
+  componentWillUnmount() {
+    clearTimeout(this._notifTimer);
+    clearTimeout(this._toastTimer);
+  }
+
+  goHome = () => this.setState({ screen: 'home', chatOpen: false });
+  goLetter = () => this.setState({ screen: 'letter', notifVisible: false, chatOpen: false });
+  goMemory = () => this.setState({ screen: 'memory', chatOpen: false });
+  goNotifs = () => this.setState({ screen: 'notifs', chatOpen: false });
+  go3a = () => this.setState({ screen: '3a', chatOpen: false });
+  openLetterFromNotif = () => this.goLetter();
+
+  toggleReflection = () => this.setState(s => ({ reflectionMode: s.reflectionMode === 'fact' ? 'question' : 'fact' }));
+
+  openChat = () => this.setState({ chatOpen: true });
+  closeChat = () => this.setState({ chatOpen: false });
+  sendChat = (item) => {
+    this.setState(s => ({
+      chatMessages: [...s.chatMessages, { from: 'user', text: item.q }, { from: 'bullye', text: item.a }],
+      chatUsed: [...s.chatUsed, item.id],
+    }));
+  };
+
+  answerQuestion = (key) => {
+    if (this.state.questionAnswered) return;
+    const info = ANSWER_MAP[key];
+    this.setState(s => ({
+      questionAnswered: key,
+      memory: [{ id: 'new-' + key, tag: 'Motivation', tone: 'brand', text: info.mem, when: 'just now', borderColor: 'var(--sq-orange-300)' }, ...s.memory],
+      toastMsg: "Saved — I'll remember that.",
+    }));
+    clearTimeout(this._toastTimer);
+    this._toastTimer = setTimeout(() => this.setState({ toastMsg: null }), 2600);
+  };
+  answerWorkless = () => this.answerQuestion('workless');
+  answerAnxious = () => this.answerQuestion('anxious');
+  answerKids = () => this.answerQuestion('kids');
+  answerRetire = () => this.answerQuestion('retire');
+
+  openEtf = () => this.setState({ glossaryKey: 'etf' });
+  openPillar = () => this.setState({ glossaryKey: 'pillar3a' });
+  openTax = () => this.setState({ glossaryKey: 'taxded' });
+  openCompound = () => this.setState({ glossaryKey: 'compound' });
+  closeGlossary = () => this.setState({ glossaryKey: null });
+  openGlossary = (key) => this.setState({ glossaryKey: key });
+  addToDictionary = () => {
+    const key = this.state.glossaryKey;
+    if (!key || this.state.dictionary.includes(key)) return;
+    this.setState(s => ({ dictionary: [...s.dictionary, key], toastMsg: 'Added to your dictionary — it may show up in a future quiz.' }));
+    clearTimeout(this._toastTimer);
+    this._toastTimer = setTimeout(() => this.setState({ toastMsg: null }), 2600);
+  };
+
+  jargonSegments(text) {
+    return splitJargon(text).map(seg => ({
+      text: seg.text,
+      style: seg.key ? 'text-decoration:underline dotted;text-decoration-color:var(--sq-orange-400);text-decoration-thickness:1.5px;cursor:pointer;font-weight:600' : '',
+      onClick: seg.key ? () => this.openGlossary(seg.key) : undefined,
+    }));
+  }
+
+  start3a = () => this.setState({ threeAConfirmed: true });
+
+  openAccessories = () => this.setState({ accessoriesOpen: true });
+  closeAccessories = () => this.setState({ accessoriesOpen: false });
+  setRewardCategory = (cat) => this.setState({ rewardCategory: cat });
+  redeemReward = (opt) => {
+    if (this.state.coins < opt.cost) return;
+    this.setState(s => ({ coins: s.coins - opt.cost, redeemedMsg: 'Redeemed: ' + opt.name }));
+    clearTimeout(this._redeemTimer);
+    this._redeemTimer = setTimeout(() => this.setState({ redeemedMsg: null }), 2600);
+  };
+
+  openAddInfo = () => this.setState({ addInfoOpen: true });
+  closeAddInfo = () => this.setState({ addInfoOpen: false, addInfoText: '' });
+  setAddInfoText = (e) => this.setState({ addInfoText: e.target.value });
+  submitAddInfo = () => {
+    const text = this.state.addInfoText.trim();
+    if (!text) return;
+    this.setState(s => ({
+      memory: [{ id: 'note-' + Date.now(), tag: 'Note', tone: 'neutral', text, when: 'just now', borderColor: 'var(--sq-orange-300)' }, ...s.memory],
+      addInfoOpen: false, addInfoText: '',
+      toastMsg: "Thanks — I'll use that for better advice.",
+    }));
+    clearTimeout(this._toastTimer);
+    this._toastTimer = setTimeout(() => this.setState({ toastMsg: null }), 2600);
+  };
+
+  openPing = () => this.setState({ pingOpen: true });
+  closePing = () => this.setState({ pingOpen: false });
+  pingFriend = (name) => {
+    this.setState({ pingOpen: false, toastMsg: 'Pinged ' + name + ' — they\u2019ll get a notification.' });
+    clearTimeout(this._toastTimer);
+    this._toastTimer = setTimeout(() => this.setState({ toastMsg: null }), 2600);
+  };
+
+  quizPick = (idx) => {
+    if (this.state.quizSelected !== null) return;
+    this.setState({ quizSelected: idx });
+  };
+  quizNext = () => {
+    this.setState(s => {
+      const wasCorrect = s.quizSelected === QUIZ_QUESTIONS[s.quizIndex].correct;
+      const nextIndex = s.quizIndex + 1;
+      if (nextIndex >= QUIZ_QUESTIONS.length) {
+        return { quizDone: true, quizXp: s.quizXp + (wasCorrect ? 10 : 0), quizStreak: s.quizStreak + 1, quizzesCompleted: s.quizzesCompleted + 1, coins: s.coins + (wasCorrect ? 10 : 0) + 15 };
+      }
+      return { quizIndex: nextIndex, quizSelected: null, quizXp: s.quizXp + (wasCorrect ? 10 : 0) };
+    });
+  };
+
+  chipStyleFor(key) {
+    const answered = this.state.questionAnswered;
+    const isSelected = answered === key;
+    const base = 'border-radius:var(--radius-pill);padding:9px 14px;font-size:13px;font-weight:600;cursor:pointer;transition:background 0.15s;';
+    if (isSelected) return base + 'background:var(--brand-primary);color:#fff;border:1px solid var(--brand-primary);';
+    if (answered) return base + 'background:var(--sq-gray-50);color:var(--text-tertiary);border:1px solid var(--border-subtle);cursor:default;';
+    return base + 'background:#fff;color:var(--text-primary);border:1px solid var(--border-default);';
+  }
+
+  renderVals() {
+    const s = this.state;
+    const userName = this.props.userName ?? 'Maya';
+    const isHome = s.screen === 'home';
+    const isLetter = s.screen === 'letter';
+    const isMemory = s.screen === 'memory';
+    const is3a = s.screen === '3a';
+    const isNotifs = s.screen === 'notifs';
+
+    const factMode = s.reflectionMode === 'fact';
+    const reflectionKicker = factMode ? "Did you know?" : "Quick reflection";
+    const reflectionHeadline = factMode
+      ? "Women in Switzerland retire with pensions about a third smaller than men's."
+      : "If your income stopped for a year, would your savings carry you — or someone else?";
+    const reflectionBody = factMode
+      ? "Career breaks and part-time years are the biggest cause. It's structural, not personal — and it's exactly what a pillar 3a can offset."
+      : "There's no wrong answer. It's just worth knowing before life asks the question for you.";
+    const reflectionCtaLabel = factMode ? "Think about my 3a" : "Reflect on this";
+    const reflectionToggleLabel = factMode ? "Ask me a question instead" : "Show me a fact instead";
+
+    const tone = this.props.letterTone ?? 'gentle';
+    const isGentleTone = tone === 'gentle';
+    const isDirectTone = tone === 'direct';
+
+    const questionLocked = !!s.questionAnswered;
+
+    const chatUsedSet = new Set(s.chatUsed);
+    const chatChips = CHAT_SCRIPT.filter(it => !chatUsedSet.has(it.id)).map(it => ({ ...it, onSelect: () => this.sendChat(it) }));
+    const chatAllDone = chatChips.length === 0;
+    const chatMessages = s.chatMessages.map(m => ({
+      ...m,
+      align: m.from === 'user' ? 'flex-end' : 'flex-start',
+      bg: m.from === 'user' ? 'var(--brand-primary)' : 'var(--sq-gray-50)',
+      color: m.from === 'user' ? '#fff' : 'var(--text-primary)',
+    }));
+
+    const glossaryKey = s.glossaryKey;
+    const glossaryOpen = !!glossaryKey;
+    const glossaryTitle = glossaryKey ? GLOSSARY[glossaryKey].title : '';
+    const glossaryBody = glossaryKey ? GLOSSARY[glossaryKey].body : '';
+    const glossaryInDictionary = glossaryKey ? s.dictionary.includes(glossaryKey) : false;
+    const dictionaryButtonLabel = glossaryInDictionary ? 'Added to dictionary ✓' : 'Add to dictionary — future quiz';
+
+    const threeAReasonText = s.questionAnswered ? REASON_MAP[s.questionAnswered] : DEFAULT_REASON;
+
+    const quizQ = QUIZ_QUESTIONS[s.quizIndex];
+    const quizOptions = quizQ ? quizQ.options.map((opt, idx) => {
+      let style = 'width:100%;text-align:left;border-radius:14px;padding:12px 14px;font-size:14px;font-weight:600;cursor:pointer;border:2px solid var(--border-default);background:#fff;color:var(--text-primary);';
+      if (s.quizSelected !== null) {
+        if (idx === quizQ.correct) style = 'width:100%;text-align:left;border-radius:14px;padding:12px 14px;font-size:14px;font-weight:600;cursor:default;border:2px solid var(--status-positive);background:var(--sq-gray-0);color:var(--status-positive);';
+        else if (idx === s.quizSelected) style = 'width:100%;text-align:left;border-radius:14px;padding:12px 14px;font-size:14px;font-weight:600;cursor:default;border:2px solid var(--status-negative);background:var(--sq-gray-0);color:var(--status-negative);';
+        else style = 'width:100%;text-align:left;border-radius:14px;padding:12px 14px;font-size:14px;font-weight:600;cursor:default;border:2px solid var(--border-subtle);background:#fff;color:var(--text-tertiary);';
+      }
+      return { label: opt, onSelect: () => this.quizPick(idx), style };
+    }) : [];
+    const quizDots = QUIZ_QUESTIONS.map((_, idx) => ({ filled: idx < s.quizIndex || (idx === s.quizIndex && s.quizDone) }));
+    const quizAnswered = s.quizSelected !== null;
+    const quizIsLast = s.quizIndex === QUIZ_QUESTIONS.length - 1;
+
+    const rewardItems = REWARD_OPTIONS.filter(o => o.category === s.rewardCategory).map(o => {
+      const affordable = s.coins >= o.cost;
+      const remaining = Math.max(0, o.cost - s.coins);
+      return {
+        ...o, affordable,
+        statusLabel: affordable ? 'Redeem' : (remaining + ' more coins'),
+        cardOpacity: affordable ? '1' : '0.6',
+        onRedeem: affordable ? () => this.redeemReward(o) : () => {},
+        badgeBg: affordable ? 'var(--sq-orange-600)' : 'var(--sq-gray-100)',
+        badgeColor: affordable ? '#fff' : 'var(--text-tertiary)',
+      };
+    });
+    const isDonateCat = s.rewardCategory === 'donate';
+    const isRetailCat = s.rewardCategory === 'retail';
+    const donateTabBg = isDonateCat ? 'var(--sq-orange-600)' : '#fff';
+    const donateTabColor = isDonateCat ? '#fff' : 'var(--sq-orange-600)';
+    const retailTabBg = isRetailCat ? 'var(--sq-orange-600)' : '#fff';
+    const retailTabColor = isRetailCat ? '#fff' : 'var(--sq-orange-600)';
+
+    const showTabBar = !s.chatOpen && s.screen !== '3a';
+    const showChatCta = isLetter && !s.chatOpen;
+    const chatCtaBottom = showTabBar ? '58px' : '0px';
+    const tabColorActive = 'var(--brand-primary)';
+    const tabColorInactive = 'var(--text-tertiary)';
+    const tabDotActive = 'var(--brand-primary)';
+    const tabDotInactive = 'transparent';
+
+    return {
+      userName, isHome, isLetter, isMemory, is3a, isNotifs,
+      notifItems: NOTIF_TYPES.map(item => ({ ...item, bodySegments: this.jargonSegments(item.body).map(seg => ({ ...seg, onClick: seg.onClick || (() => {}) })) })),
+      goHome: this.goHome, goLetter: this.goLetter, goMemory: this.goMemory, go3a: this.go3a, goNotifs: this.goNotifs,
+      openLetterFromNotif: this.openLetterFromNotif,
+      reflectionKicker, reflectionHeadline, reflectionBody, reflectionCtaLabel, reflectionToggleLabel,
+      toggleReflection: this.toggleReflection,
+      isGentleTone, isDirectTone,
+      questionLocked,
+      chipStyleWorkless: this.chipStyleFor('workless'),
+      chipStyleAnxious: this.chipStyleFor('anxious'),
+      chipStyleKids: this.chipStyleFor('kids'),
+      chipStyleRetire: this.chipStyleFor('retire'),
+      answerWorkless: this.answerWorkless, answerAnxious: this.answerAnxious, answerKids: this.answerKids, answerRetire: this.answerRetire,
+      openEtf: this.openEtf, openPillar: this.openPillar, openTax: this.openTax, openCompound: this.openCompound,
+      memoryItems: s.memory,
+      threeAConfirmed: s.threeAConfirmed, threeAPending: !s.threeAConfirmed, threeAReasonText, start3a: this.start3a,
+      showTabBar,
+      tabColorHome: isHome ? tabColorActive : tabColorInactive,
+      tabColorLetter: isLetter ? tabColorActive : tabColorInactive,
+      tabColorMemory: isMemory ? tabColorActive : tabColorInactive,
+      tabDotHome: isHome ? tabDotActive : tabDotInactive,
+      tabDotLetter: isLetter ? tabDotActive : tabDotInactive,
+      tabDotMemory: isMemory ? tabDotActive : tabDotInactive,
+      showChatCta, chatCtaBottom,
+      notifTop: s.notifVisible ? '54px' : '-120px',
+      notifOpacity: s.notifVisible ? 1 : 0,
+      chatTranslate: s.chatOpen ? '0%' : '105%',
+      scrimBg: s.chatOpen ? 'rgba(13,13,13,0.45)' : 'rgba(13,13,13,0)',
+      scrimPointer: s.chatOpen ? 'auto' : 'none',
+      closeChat: this.closeChat, openChat: this.openChat,
+      chatMessages, chatChips, chatAllDone,
+      glossaryOpen, glossaryTitle, glossaryBody, closeGlossary: this.closeGlossary,
+      toastMsg: s.toastMsg,
+      friends: FRIENDS.map(name => ({ name, initial: name[0], onPing: () => this.pingFriend(name) })),
+      pingOpen: s.pingOpen, openPing: this.openPing, closePing: this.closePing,
+      stopBubble: (e) => e.stopPropagation(),
+      addInfoOpen: s.addInfoOpen, openAddInfo: this.openAddInfo, closeAddInfo: this.closeAddInfo,
+      addInfoText: s.addInfoText, setAddInfoText: this.setAddInfoText, submitAddInfo: this.submitAddInfo,
+      glossaryInDictionary, dictionaryButtonLabel, addToDictionary: this.addToDictionary,
+      quizStreak: s.quizStreak, quizzesCompleted: s.quizzesCompleted, quizXp: s.quizXp, quizDone: s.quizDone, quizNotDone: !s.quizDone,
+      coins: s.coins, rewardItems, isDonateCat, isRetailCat, setDonateCat: () => this.setRewardCategory('donate'), setRetailCat: () => this.setRewardCategory('retail'),
+      donateTabBg, donateTabColor, retailTabBg, retailTabColor,
+      redeemedMsg: s.redeemedMsg,
+      accessoriesOpen: s.accessoriesOpen, openAccessories: this.openAccessories, closeAccessories: this.closeAccessories,
+      quizQuestionText: quizQ ? quizQ.q : '', quizOptions, quizDots, quizAnswered, quizNotAnswered: !quizAnswered,
+      quizExplain: quizQ ? quizQ.explain : '',
+      quizWasCorrect: (() => { const c = quizAnswered && quizQ && s.quizSelected === quizQ.correct; return c ? 'var(--status-positive)' : 'var(--status-negative)'; })(),
+      quizVerdictLabel: (quizAnswered && quizQ && s.quizSelected === quizQ.correct) ? 'Correct.' : 'Not quite.',
+      quizNextLabel: quizIsLast ? 'See results' : 'Next question', quizNext: this.quizNext,
+      quizCurrentNum: s.quizIndex + 1, quizTotal: QUIZ_QUESTIONS.length,
+    };
+  }
+}
+</script>
+</body>
+</html>
