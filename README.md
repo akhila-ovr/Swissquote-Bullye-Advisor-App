@@ -24,18 +24,6 @@ npm run build     # outputs static files to dist/
 npm run preview   # serve dist/ locally to check it
 ```
 
-## Deploy (pick one - all are drag-and-drop simple)
-
-| Host | How |
-| --- | --- |
-| **Netlify Drop** | Run `npm run build`, then drag the `dist/` folder onto <https://app.netlify.com/drop>. Done. |
-| **Vercel** | `npm i -g vercel && vercel`. It auto-detects Vite (build `npm run build`, output `dist`). |
-| **GitHub Pages** | `npm run build`, push `dist/` to a `gh-pages` branch, enable Pages. |
-| **Cloudflare Pages** | New project → connect repo → framework preset "Vite" → deploy. |
-
-No environment variables, no backend, no database. All state is in-memory and
-resets on refresh - that's intentional for a demo.
-
 ## Project layout
 
 ```
@@ -63,13 +51,3 @@ opens `explainer`, a scrollable write-up of the research and design thinking.
 Onboarding answers land in a `profile` that personalises the app: the greeting
 name, the weekly-letter tone, the 3a strategy label, and the Profile tab.
 
-## Notes
-
-- The `_ds/` folder is the original Swissquote design-system export. The app
-  copies its tokens into `src/styles/tokens.css` and re-implements the five
-  primitives it uses, so there's no dependency on a global-window bundle.
-- The design tokens/fonts are an approximate reconstruction from public brand
-  facts, not Swissquote's real internal design system - see `_ds/.../readme.md`.
-- Deliberate changes vs. the original prototype: a two-path entry screen with
-  onboarding, the "Did you know?" reflection card removed, the weekly-letter
-  card moved to the top of Home, and the pop-up letter notification removed.
