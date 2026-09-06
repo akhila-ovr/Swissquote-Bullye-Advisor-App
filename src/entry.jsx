@@ -20,7 +20,7 @@ import {
 const TEAM = [
   { name: 'Ethel', role: 'Public governance & geoeconomics', url: 'https://www.linkedin.com/in/etheltanhy/' },
   { name: 'Andrea', role: 'Computational science & engineering', url: 'https://www.linkedin.com/in/andrea-hrman-408478415/' },
-  { name: 'Akhila', role: 'Product design & software', url: 'https://www.linkedin.com/in/akhila-obilisetty/' },
+  { name: 'Akhila', role: 'Computer science & product design', url: 'https://www.linkedin.com/in/akhila-obilisetty/' },
 ]
 
 export function EntryScreen({ onDemo, onExplain }) {

@@ -60,8 +60,10 @@ button {
   flex-direction: column;
 }
 
-/* Placeholder card: hover reveals a note that it stands in for a real view. */
+/* Placeholder card: hover reveals a note that it stands in for a real view.
+ * Nothing inside is interactive - it's a stand-in, not a working panel. */
 .ph-swap { position: relative; }
+.ph-swap > *:not(.ph-swap-note) { pointer-events: none; }
 .ph-swap .ph-swap-note {
   position: absolute;
   inset: 0;

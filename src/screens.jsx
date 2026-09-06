@@ -142,17 +142,12 @@ export function HomeScreen({ vm }) {
           <span style={css('color:var(--text-secondary)')}>Cash (idle)</span>
           <Tag>Not invested</Tag>
         </div>
-        <div
-          onClick={vm.openStrategy}
-          style={css('display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--border-subtle);font-size:13px;cursor:pointer')}
-        >
+        <div style={css('display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--border-subtle);font-size:13px')}>
           <span style={css('color:var(--text-secondary)')}>Pillar 3a</span>
           {vm.strategyLabel ? (
-            <span style={css('color:var(--sq-orange-600);font-weight:600;text-align:right')}>
-              {vm.strategyLabel} · not funded <span style={css('color:var(--text-tertiary);font-weight:400')}>· change</span>
-            </span>
+            <span style={css('color:var(--sq-orange-600);font-weight:600;text-align:right')}>{vm.strategyLabel} · not funded</span>
           ) : (
-            <span style={css('color:var(--sq-orange-600);font-weight:600')}>Choose a strategy ›</span>
+            <span style={css('color:var(--text-tertiary);font-style:italic')}>Not started</span>
           )}
         </div>
       </div>
@@ -292,10 +287,10 @@ export function LetterScreen({ vm }) {
           Past letters
         </div>
         <div style={css('display:flex;flex-direction:column;gap:2px')}>
-          {vm.pastLetters.map((l) => (
-            <div key={l.week} style={css('padding:10px 0;border-top:1px solid var(--border-subtle)')}>
-              <div style={css('font-size:12px;font-weight:700;color:var(--text-primary);margin-bottom:2px')}>{l.week}</div>
-              <div style={css('font-size:12px;color:var(--text-secondary);line-height:1.5')}>{l.summary}</div>
+          {vm.pastLetters.map((week) => (
+            <div key={week} style={css('padding:11px 0;border-top:1px solid var(--border-subtle);display:flex;justify-content:space-between;align-items:center')}>
+              <span style={css('font-size:12.5px;font-weight:600;color:var(--text-primary)')}>{week}</span>
+              <span style={css('color:var(--text-tertiary);font-size:15px')}>›</span>
             </div>
           ))}
         </div>

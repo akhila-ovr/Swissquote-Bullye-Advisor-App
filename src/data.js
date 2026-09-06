@@ -74,12 +74,7 @@ export const QUIZ_RANKING = [
   { name: 'Mila', points: 120 },
 ]
 
-export const PAST_LETTERS = [
-  { week: 'Week of Aug 25', summary: 'Flat month. First mention of the 3a, and a question about your goals.' },
-  { week: 'Week of Aug 18', summary: 'Markets dipped and recovered. Why staying put usually beats reacting.' },
-  { week: 'Week of Aug 11', summary: 'What an ETF actually is, and why your cash pile is a quiet cost.' },
-  { week: 'Week of Aug 4', summary: 'Your first letter. How this works, and what Bullyee will and won’t do.' },
-]
+export const PAST_LETTERS = ['Week of Aug 25', 'Week of Aug 18', 'Week of Aug 11', 'Week of Aug 4']
 
 export const REWARD_OPTIONS = [
   { emoji: '🇨🇭', name: 'CHF 5 to Pro Juventute', category: 'donate', cost: 50 },
