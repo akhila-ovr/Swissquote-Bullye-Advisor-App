@@ -44,17 +44,16 @@ export function splitJargon(text) {
 }
 
 export const ANSWER_MAP = {
-  workless: { mem: 'Wants to work less, not stop working entirely.' },
-  anxious: { mem: 'Wants to feel less anxious about money day-to-day.' },
-  kids: { mem: 'Wants to support her kids without financial stress.' },
-  retire: { mem: 'Wants the option to retire earlier than the default path.' },
+  now: { mem: 'Working part-time or on a break right now. Pillars 1 and 2 are not growing for her.' },
+  past: { mem: 'Has had career breaks. Knows the pension gap first-hand.' },
+  no: { mem: 'Full-time throughout so far. Wants to stay ahead of any future gap.' },
+  skip: { mem: 'Would rather not share her working pattern for now.' },
 }
 
 export const REASON_MAP = {
-  workless: 'You told Bullyee you want to work less, not stop. A 3a is how you buy that choice quietly.',
-  anxious: 'You told Bullyee money-anxiety is real for you. A 3a is one less thing to worry about, on autopilot.',
-  kids: 'You told Bullyee your kids come first. A 3a protects that without touching your day-to-day cash.',
-  retire: 'You told Bullyee you want the option to retire earlier. Every year in a 3a keeps that option open.',
+  now: 'You told Bullyee your work is part-time or paused right now. Pillars 1 and 2 only grow while you’re employed, so a 3a is the one you control.',
+  past: 'You told Bullyee your work has paused before. Those are the years the first two pillars didn’t grow. A 3a is how you close that gap on your terms.',
+  no: 'You told Bullyee you’ve worked full-time throughout. A 3a is how you stay ahead of any gap a future break would open.',
 }
 export const DEFAULT_REASON =
   'You told Bullyee time with your family matters more than climbing fast. A 3a protects that choice quietly.'
@@ -168,7 +167,7 @@ export const NOTIF_TYPES = [
   {
     type: 'bring',
     title: "Don't wait 3 months",
-    body: 'CHF 150/month into a securities 3a from today closes your pension gap by 65. Five minutes now saves you CHF 2,400 more this year.',
+    body: 'A new financial year is around the corner. Start CHF 150 a month into a securities 3a now, and by year end you have set aside CHF 1,800 with about CHF 500 back in tax.',
     tags: ['Personalized', 'Urgency'],
     why: 'Personalised urgency with a concrete figure frames delay as a measurable cost, not a vague one.',
   },
@@ -181,9 +180,8 @@ export const INITIAL_MEMORY = [
 
 /* -------------------------------------------------------------- onboarding ---- */
 /* A short "get to know you" flow, modelled on what Swissquote asks when you
- * open a 3a (identity, capacity, risk appetite, knowledge) but re-weighted
- * toward the things the research says actually matter to women: working
- * pattern / career breaks, and comfort with the jargon. */
+ * open a 3a: identity, capacity, risk appetite. The working-pattern question
+ * the research cares about most is asked later, in the weekly letter. */
 export const ONBOARDING_STEPS = [
   {
     id: 'name',
@@ -220,18 +218,6 @@ export const ONBOARDING_STEPS = [
     ],
   },
   {
-    id: 'careBreak',
-    kind: 'choice',
-    q: 'Has your work ever gone part-time or paused? Care, study, health, travel, anything.',
-    hint: 'Two of the three Swiss pension pillars only grow while you’re employed. A 3a is how you cover the gap.',
-    options: [
-      { value: 'now', label: 'Yes, right now' },
-      { value: 'past', label: 'Yes, in the past' },
-      { value: 'no', label: 'No, full-time throughout' },
-      { value: 'skip', label: 'Rather not say' },
-    ],
-  },
-  {
     id: 'risk',
     kind: 'choice',
     q: 'Your 3a drops 10% in a month. Gut reaction?',
@@ -254,17 +240,6 @@ export const ONBOARDING_STEPS = [
       { value: '300_600', label: 'CHF 300–600' },
       { value: 'gt600', label: 'CHF 600+' },
       { value: 'unsure', label: 'Not sure yet' },
-    ],
-  },
-  {
-    id: 'jargon',
-    kind: 'choice',
-    q: 'Words like ETF, compound growth, securities 3a. How do they land?',
-    hint: 'This helps Bullyee pitch explanations at the right level for you.',
-    options: [
-      { value: 'new', label: 'New to all of it' },
-      { value: 'some', label: 'I know some' },
-      { value: 'comfortable', label: 'Pretty comfortable' },
     ],
   },
 ]
@@ -330,11 +305,6 @@ export const CARE_LABEL = {
   no: 'Full-time throughout',
   skip: '',
 }
-export const JARGON_LABEL = {
-  new: 'New to the terms',
-  some: 'Knows some of the terms',
-  comfortable: 'Comfortable with the terms',
-}
 
 /* -------------------------------------------------------- in-demo coach tour ---- */
 /* Small step-through popups the first time you enter the app. Each points at one
@@ -356,7 +326,7 @@ export const COACH_STEPS = [
   {
     target: 'coach-community',
     title: 'Friends',
-    what: 'A short list of friends you can nudge - pass on a card, throw a quiz challenge, or ask if they’ve opened theirs. That’s the whole social layer.',
+    what: 'A short list of friends you can nudge - pass on a card, throw a quiz challenge, or ask if they’ve opened theirs.',
     why: 'Women invest more easily next to people they trust. Kept as light as adding a friend on Duolingo: no shared money, no group account.',
   },
   {

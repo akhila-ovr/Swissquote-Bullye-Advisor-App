@@ -26,7 +26,6 @@ import {
   AGE_LABEL,
   GOAL_LABEL,
   CARE_LABEL,
-  JARGON_LABEL,
   MONTHLY_LABEL,
   COACH_STEPS,
   FRIENDS,
@@ -166,16 +165,16 @@ export default function App() {
     setState((s) => ({
       questionAnswered: key,
       memory: [
-        { id: 'new-' + key, tag: 'Motivation', tone: 'brand', text: info.mem, when: 'just now', borderColor: 'var(--sq-orange-300)' },
+        { id: 'new-' + key, tag: 'Working pattern', tone: 'brand', text: info.mem, when: 'just now', borderColor: 'var(--sq-orange-300)' },
         ...s.memory,
       ],
     }))
     flashToast("Saved. I'll remember that.")
   }
-  const answerWorkless = () => answerQuestion('workless')
-  const answerAnxious = () => answerQuestion('anxious')
-  const answerKids = () => answerQuestion('kids')
-  const answerRetire = () => answerQuestion('retire')
+  const answerCareNow = () => answerQuestion('now')
+  const answerCarePast = () => answerQuestion('past')
+  const answerCareNo = () => answerQuestion('no')
+  const answerCareSkip = () => answerQuestion('skip')
 
   /* ---- glossary ---- */
   const openGlossary = (key) => setState({ glossaryKey: key })
@@ -259,10 +258,12 @@ export default function App() {
   const profile = s.profile
 
   const userName = (profile?.name || '').trim() || CONFIG.userName || 'Maya'
-  const tone = profile
-    ? profile.careBreak === 'now' || profile.careBreak === 'past'
-      ? 'gentle'
-      : 'direct'
+  // The letter's working-pattern question drives tone: gentle unless she says
+  // she's worked full-time throughout. Unanswered falls back to the config default.
+  const tone = s.questionAnswered
+    ? s.questionAnswered === 'no'
+      ? 'direct'
+      : 'gentle'
     : CONFIG.letterTone ?? 'gentle'
   const isGentleTone = tone === 'gentle'
 
@@ -299,20 +300,17 @@ export default function App() {
   const glossaryInDictionary = glossaryKey ? s.dictionary.includes(glossaryKey) : false
   const dictionaryButtonLabel = glossaryInDictionary ? 'Added to dictionary ✓' : 'Add to dictionary'
 
-  const threeAReasonText = s.questionAnswered
-    ? REASON_MAP[s.questionAnswered]
-    : goals[0]
-      ? GOAL_REASON[goals[0]]
-      : DEFAULT_REASON
+  const threeAReasonText =
+    (s.questionAnswered && REASON_MAP[s.questionAnswered]) ||
+    (goals[0] ? GOAL_REASON[goals[0]] : DEFAULT_REASON)
 
   const profileFacts = profile
     ? [
         profile.age && ['Age', AGE_LABEL[profile.age]],
         goals.length > 0 && ["Why you're here", goals.map((g) => GOAL_LABEL[g]).join(', ')],
-        profile.careBreak && CARE_LABEL[profile.careBreak] && ['Working pattern', CARE_LABEL[profile.careBreak]],
+        s.questionAnswered && CARE_LABEL[s.questionAnswered] && ['Working pattern', CARE_LABEL[s.questionAnswered]],
         strategy && ['3a strategy', strategy.label + ' · ' + strategy.equity],
         profile.monthly && profile.monthly !== 'unsure' && ['Can set aside', MONTHLY_LABEL[profile.monthly] + ' / month'],
-        profile.jargon && ['Comfort with terms', JARGON_LABEL[profile.jargon]],
       ].filter(Boolean)
     : []
 
@@ -405,14 +403,14 @@ export default function App() {
 
     isGentleTone,
     questionLocked,
-    chipStyleWorkless: chipStyleFor('workless'),
-    chipStyleAnxious: chipStyleFor('anxious'),
-    chipStyleKids: chipStyleFor('kids'),
-    chipStyleRetire: chipStyleFor('retire'),
-    answerWorkless,
-    answerAnxious,
-    answerKids,
-    answerRetire,
+    chipStyleCareNow: chipStyleFor('now'),
+    chipStyleCarePast: chipStyleFor('past'),
+    chipStyleCareNo: chipStyleFor('no'),
+    chipStyleCareSkip: chipStyleFor('skip'),
+    answerCareNow,
+    answerCarePast,
+    answerCareNo,
+    answerCareSkip,
 
     openEtf,
     openPillar,

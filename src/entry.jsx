@@ -12,7 +12,6 @@ import {
   RISK_TO_STRATEGY,
   MONTHLY_LABEL,
   GOAL_LABEL,
-  CARE_LABEL,
   NOTIF_TYPES,
 } from './data.js'
 
@@ -210,7 +209,6 @@ function OnboardingSummary({ answers, onFinish }) {
   const goals = (Array.isArray(answers.goal) ? answers.goal : answers.goal ? [answers.goal] : []).map((g) => GOAL_LABEL[g])
   const facts = [
     goals.length > 0 && ['Why you’re here', goals.join(', ')],
-    answers.careBreak && CARE_LABEL[answers.careBreak] && ['Working pattern', CARE_LABEL[answers.careBreak]],
     answers.monthly && answers.monthly !== 'unsure' && ['Monthly', MONTHLY_LABEL[answers.monthly]],
     strategy && ['3a strategy', strategy.label],
   ].filter(Boolean)
@@ -389,7 +387,7 @@ export function Explainer({ onBack, onDemo }) {
             items={[
               'Secondary data: Federal Statistical Office figures on the pension gap, part-time work, and 3a participation.',
               'Desk research: ~24 threads across Mustachian Post and EnglishForum.ch, the elleXX content library, and an SRF / cash.ch piece with its comments.',
-              'Informal interviews with women in their 20s to 40s about pensions and the 3a.',
+              '3 informal interviews with women in their 20s and 30s about pensions and the 3a.',
             ]}
           />
         </NumSection>
@@ -415,7 +413,7 @@ export function Explainer({ onBack, onDemo }) {
           <UL
             items={[
               ['Perceived unfairness. ', 'Career breaks and part-time years quietly cost women, and they feel they carry that risk alone. It reads as emotional, not financial.'],
-              ['Jargon as a barrier to entry. ', 'Questions start at “what even is a 3a”. Confusion, not lack of ambition.'],
+              ['Jargon as a barrier to entry. ', 'Questions run from “what even is a 3a” to “if I max mine out, am I trading away the growth I could get investing that money freely?” Confusion, not lack of ambition.'],
               ['Low trust from prior experience. ', 'High-fee, insurance-linked bank 3a products left people wary of the whole category.'],
               ['Choice overload and lock-in aversion. ', 'Ten providers to compare, and the money is locked until retirement.'],
             ]}
@@ -431,13 +429,20 @@ export function Explainer({ onBack, onDemo }) {
         </NumSection>
 
         <NumSection n="3" kicker="Design response" title="Findings, mapped to decisions">
-          <P>Goal: help women feel confident enough to start, and keep going once the novelty fades.</P>
+          <div style={css('background:var(--sq-orange-50);border-left:3px solid var(--sq-orange-500);border-radius:var(--radius-lg);padding:12px 14px;margin-bottom:14px')}>
+            <div style={css('font-size:10.5px;font-weight:800;letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--sq-orange-600);margin-bottom:4px')}>
+              Goal
+            </div>
+            <div style={css('font-size:14px;font-weight:600;color:var(--text-primary);line-height:1.5')}>
+              Help women feel confident enough to start, and keep going once the novelty fades.
+            </div>
+          </div>
           <UL
             items={[
               ['Perceived unfairness → ', 'name it directly, and build a friend into the product.'],
               ['Jargon → ', "every term is tappable, saved to the user's words, and reused in a friendly, low-pressure quiz."],
-              ['Low trust → ', "Bullyee explains rather than pitches; the user's profile is visible and editable."],
-              ['Choice overload → ', 'onboarding sets one starting strategy (Saving to Ambitious), changeable any time.'],
+              ['Low trust → ', "Bullyee explains rather than pitches; advice is built around the user's own values, not a list of Swissquote offers, and she decides what to act on."],
+              ['Choice overload → ', 'onboarding recommends one starting strategy (Saving to Ambitious), changeable any time.'],
               ['Lock-in aversion → ', 'addressed openly as a commitment device, in a myth-buster notification.'],
             ]}
           />
@@ -498,8 +503,8 @@ export function Explainer({ onBack, onDemo }) {
                       Planning for next week
                     </div>
                     <div style={css('font-size:10.5px;color:var(--text-primary);line-height:1.45')}>
-                      One step: open your 3a and set one contribution. And a question back: what would financial freedom
-                      let you do?
+                      One step: open your 3a and set one contribution. And a question back: has your work ever gone
+                      part-time or paused?
                     </div>
                   </div>
                 </div>
@@ -606,31 +611,35 @@ export function Explainer({ onBack, onDemo }) {
             }
           />
 
-          <div style={css('margin:16px 0 0')}>
-            <P>
-              <strong>Keeping them after the novelty.</strong> We designed for three engagement patterns seen in
-              research, and let the app shift weight toward whichever fits:
-            </P>
-            <UL
-              items={[
-                ['The reader: ', 'wants the vocabulary. Gets the glossary and definition notifications.'],
-                ['The competitor: ', 'here for the quiz, the streak, the leaderboard.'],
-                ['The letter-only user: ', 'opens one thing a week. Gets a tight letter and little else.'],
-              ]}
-            />
-            <P>It also grows with the user, from “what’s a 3a” toward “should I max my contribution this year”.</P>
-          </div>
         </NumSection>
 
-        <NumSection n="5" kicker="Validation" title="Two moderated concept sessions">
-          <P>We walked two users through the prototype and talked it back.</P>
+        <NumSection n="5" kicker="Validation" title="User testing of design concepts">
+          <P>
+            <strong>Keeping them after the novelty.</strong> Retention is a climb toward investing well, and people
+            take different routes up it:
+          </P>
+          <UL
+            items={[
+              ['Read. ', 'Notifications do the work: a fact, a definition, a misconception corrected. Basic financial knowledge, nothing to open.'],
+              ['Engage. ', 'The user starts opening the weekly letter, asking Bullyee questions, and trusting the app as a source.'],
+              ['Invest. ', 'The user opens a 3a and keeps going, into harder questions like whether to max the contribution this year.'],
+            ]}
+          />
+          <div style={css('background:var(--sq-orange-50);border-left:3px solid var(--sq-orange-500);border-radius:var(--radius-lg);padding:12px 14px;margin-bottom:14px')}>
+            <div style={css('font-size:14px;font-weight:600;color:var(--text-primary);line-height:1.5')}>
+              The entry point differs by person: a single fact, a corrected misconception, the quiz, or just the letter.
+              Bullyee supports every route, toward one goal: investing better.
+            </div>
+          </div>
+          <P>We walked three users through the prototype and talked it back.</P>
           <UL
             items={[
               'Resonated: the explain-first tone, tappable jargon, and the low-pressure peer nudge.',
               'Read as doable: the letter’s single “plan for next week”.',
+              'Varied by person: one user liked the words but had no interest in the quiz, a reminder that different parts of the app land with different users.',
             ]}
           />
-          <P>Two sessions is an early signal, not a result. The next step is a proper test.</P>
+          <P>Three sessions is an early signal, not a result. The next step is a proper test.</P>
         </NumSection>
 
         <NumSection n="6" kicker="Next steps" title="From concept to product">

@@ -230,7 +230,7 @@ export function LetterScreen({ vm }) {
             <span onClick={vm.openEtf} style={css('text-decoration:underline dotted;text-decoration-color:var(--sq-orange-400);text-decoration-thickness:1.5px;cursor:pointer;font-weight:600')}>
               ETF
             </span>
-            . Some cash sat uninvested for three weeks, earning nothing - a small but real cost of waiting.
+            .
           </p>
         </div>
 
@@ -240,9 +240,9 @@ export function LetterScreen({ vm }) {
           </div>
           {vm.isGentleTone ? (
             <p style={css('font-size:15px;color:var(--text-primary);line-height:1.6;margin:0 0 14px')}>
-              You told me time with your family matters more than climbing fast. A{' '}
-              <Jargon onClick={vm.openPillar}>pillar 3a</Jargon> isn't a product pitch - it's a way to quietly protect
-              that choice. Every year you wait is a year those <Jargon onClick={vm.openTax}>tax-deductible</Jargon>{' '}
+              You told me time with your family matters a lot. A{' '}
+              <Jargon onClick={vm.openPillar}>pillar 3a</Jargon> is a way to quietly protect it. Every year you
+              wait is a year those <Jargon onClick={vm.openTax}>tax-deductible</Jargon>{' '}
               contributions and their <Jargon onClick={vm.openCompound}>compound growth</Jargon> can't work for you.
             </p>
           ) : (
@@ -259,21 +259,21 @@ export function LetterScreen({ vm }) {
           <div style={css('display:flex;gap:10px;align-items:flex-start;margin-bottom:12px')}>
             <BullyeAvatar size={30} />
             <div style={css('font-size:14px;font-weight:700;color:var(--text-primary);line-height:1.4;padding-top:2px')}>
-              Quick one from me: what would financial freedom actually let you do?
+              Quick one from me: has your work ever gone part-time or paused? Care, study, health, travel, anything.
             </div>
           </div>
           <div style={css('display:flex;flex-wrap:wrap;gap:8px')}>
-            <button onClick={vm.answerWorkless} disabled={vm.questionLocked} style={css(vm.chipStyleWorkless)}>
-              Work less, not stop
+            <button onClick={vm.answerCareNow} disabled={vm.questionLocked} style={css(vm.chipStyleCareNow)}>
+              Yes, right now
             </button>
-            <button onClick={vm.answerAnxious} disabled={vm.questionLocked} style={css(vm.chipStyleAnxious)}>
-              Feel less anxious
+            <button onClick={vm.answerCarePast} disabled={vm.questionLocked} style={css(vm.chipStyleCarePast)}>
+              Yes, in the past
             </button>
-            <button onClick={vm.answerKids} disabled={vm.questionLocked} style={css(vm.chipStyleKids)}>
-              Support my kids
+            <button onClick={vm.answerCareNo} disabled={vm.questionLocked} style={css(vm.chipStyleCareNo)}>
+              No, full-time throughout
             </button>
-            <button onClick={vm.answerRetire} disabled={vm.questionLocked} style={css(vm.chipStyleRetire)}>
-              Retire earlier
+            <button onClick={vm.answerCareSkip} disabled={vm.questionLocked} style={css(vm.chipStyleCareSkip)}>
+              Rather not say
             </button>
           </div>
           {vm.questionLocked && (
